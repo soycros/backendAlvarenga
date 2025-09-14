@@ -1,9 +1,6 @@
 import { Router } from 'express';
 import ProductManager from '../managers/ProductManager.js';
 import { io } from '../app.js';
-import { getProducts } from '../controllers/products.controller.js';
-
-router.get('/', getProducts);
 
 const router = Router();
 const productManager = new ProductManager('./src/data/products.json');

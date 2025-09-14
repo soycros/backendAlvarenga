@@ -27,13 +27,13 @@ router.get('/', async (req, res) => {
     hasNextPage: result.hasNextPage,
     prevLink: result.hasPrevPage ? `/?page=${result.prevPage}` : null,
     nextLink: result.hasNextPage ? `/?page=${result.nextPage}` : null,
-    cartId: '64f0a1c2e5b9b2a7c8f1d123' // reemplazalo por el ID real del carrito
+    cartId: '68c74924998577524dae3215'
   });
 });
 
 router.get('/products/:pid', async (req, res) => {
   const product = await Product.findById(req.params.pid);
-  res.render('productDetail', { ...product.toObject(), cartId: '64f0a1c2e5b9b2a7c8f1d123' });
+  res.render('productDetail', { ...product.toObject(), cartId: '68c74924998577524dae3215' });
 });
 
 router.get('/carts/:cid', async (req, res) => {

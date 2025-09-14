@@ -5,20 +5,20 @@ import path from 'path';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import ProductManager from './managers/ProductManager.js';
-import connectDB from './src/config/db.js';
-import viewsRouter from './src/routes/views.router.js';
-import { errorHandler } from './src/middleware/errorHandler.js';
-
-app.use(errorHandler);
-
-app.use('/', viewsRouter);  
-
-connectDB();
+import connectDB from './config/db.js';
+import viewsRouter from './routes/views.router.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = 8080;
-const httpServer = app.listen(PORT, () => console.log(`Servidor escuchando en puerto ${PORT}`));
+
+connectDB();
+
+const httpServer = app.listen(PORT, () =>
+  console.log(`Servidor escuchando en puerto ${PORT}`)
+);
 const io = new Server(httpServer);
+export { io };
 
 const productManager = new ProductManager('./src/data/products.json');
 
@@ -26,27 +26,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve('./src/public')));
 
-// Handlebars
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve('./src/views'));
 
-// Rutas API
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-// Vistas
-app.get('/', async (req, res) => {
-  const products = await productManager.getProducts();
-  res.render('home', { products });
-});
+app.use('/', viewsRouter);
 
 app.get('/realtimeproducts', async (req, res) => {
   const products = await productManager.getProducts();
   res.render('realTimeProducts', { products });
 });
 
-// WebSocket
+app.get('/home', async (req, res) => {
+  const products = await productManager.getProducts();
+  res.render('home', { products });
+});
+
 io.on('connection', socket => {
   console.log('Cliente conectado');
 
@@ -63,4 +61,4 @@ io.on('connection', socket => {
   });
 });
 
-export { io };
+app.use(errorHandler);
