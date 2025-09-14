@@ -5,6 +5,12 @@ import path from 'path';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
 import ProductManager from './managers/ProductManager.js';
+import connectDB from './src/config/db.js';
+import viewsRouter from './src/routes/views.router.js';
+
+app.use('/', viewsRouter);  
+
+connectDB();
 
 const app = express();
 const PORT = 8080;
