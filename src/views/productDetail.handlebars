@@ -1,12 +1,14 @@
 <h1>{{title}}</h1>
 
-<p>{{description}}</p>
-<p>Precio: ${{price}}</p>
-<p>Stock disponible: {{stock}}</p>
-<p>Categoría: {{category}}</p>
+<section class="product-detail">
+  <p><strong>Descripción:</strong> {{description}}</p>
+  <p><strong>Precio:</strong> ${{price}}</p>
+  <p><strong>Stock disponible:</strong> {{stock}}</p>
+  <p><strong>Categoría:</strong> {{category}}</p>
 
-<form action="/carts/{{cartId}}/product/{{_id}}" method="POST">
-  <button type="submit">Agregar al carrito</button>
-</form>
+  <form action="/carts/{{cartId}}/product/{{_id}}" method="POST">
+    <button type="submit">Agregar al carrito</button>
+  </form>
+</section>
 
-<a href="/products">Volver al listado</a>
+<a href="/">← Volver al listado</a>
