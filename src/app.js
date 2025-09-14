@@ -7,6 +7,9 @@ import cartsRouter from './routes/carts.router.js';
 import ProductManager from './managers/ProductManager.js';
 import connectDB from './src/config/db.js';
 import viewsRouter from './src/routes/views.router.js';
+import { errorHandler } from './src/middleware/errorHandler.js';
+
+app.use(errorHandler);
 
 app.use('/', viewsRouter);  
 
