@@ -16,3 +16,4 @@ productSchema.plugin(mongoosePaginate);
 
 // ✅ Forzar colección 'Products' y exportar correctamente
 export default mongoose.model('Product', productSchema, 'Products');
+

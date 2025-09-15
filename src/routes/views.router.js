@@ -27,16 +27,17 @@ router.get('/', async (req, res) => {
   try {
     const result = await Product.paginate(filter, options);
 
-    res.render('index', {
-      products: result.docs,
-      page: result.page,
-      totalPages: result.totalPages,
-      hasPrevPage: result.hasPrevPage,
-      hasNextPage: result.hasNextPage,
-      prevLink: result.hasPrevPage ? `/?page=${result.prevPage}` : null,
-      nextLink: result.hasNextPage ? `/?page=${result.nextPage}` : null,
-      cartId: '68c74924998577524dae3215'
-    });
+res.render('index', {
+  products: result.docs,
+  cartId: '66c7429498517534dabe3215', // ← este es el ID real del carrito
+  page: result.page,
+  totalPages: result.totalPages,
+  hasPrevPage: result.hasPrevPage,
+  hasNextPage: result.hasNextPage,
+  prevLink: result.prevLink,
+  nextLink: result.nextLink
+});
+
   } catch (error) {
     console.error('❌ Error en la ruta /:', error);
     res.status(500).send('Error al cargar productos');
